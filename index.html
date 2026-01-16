@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S-TECH Industry - CAD & 3D Scanning Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Flaticon CSS for icons -->
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="S-TECH.png" alt="S-TECH Industry Logo" class="logo-img">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" data-en="Home" data-pl="Strona główna">Home</a></li>
+                <li><a href="#services" data-en="Services" data-pl="Usługi">Services</a></li>
+                <li><a href="#projects" data-en="Projects" data-pl="Projekty">Projects</a></li>
+                <li><a href="#about" data-en="About" data-pl="O nas">About</a></li>
+                <li><a href="#contact" data-en="Contact" data-pl="Kontakt">Contact</a></li>
+                <li class="lang-switcher">
+                    <button id="theme-btn" class="theme-btn" title="Toggle Dark Mode">
+                        <i class="fi fi-rr-moon"></i>
+                    </button>
+                    <button id="lang-btn" class="lang-btn">EN / PL</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2 data-en="Precision Engineering Through Technology" data-pl="Precyzyjna inżynieria dzięki technologii">Precision Engineering Through Technology</h2>
+            <p data-en="CAD Design & 3D Scanning Solutions for Modern Industry" data-pl="Rozwiązania CAD i skanowania 3D dla nowoczesnego przemysłu">CAD Design & 3D Scanning Solutions for Modern Industry</p>
+            <a href="#contact" class="cta-button" data-en="Get Started" data-pl="Zacznij">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2><i class="fi fi-rr-briefcase"></i> <span data-en="Our Services" data-pl="Nasze usługi">Our Services</span></h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-header">
+                        <h3><i class="fi fi-rr-pencil"></i> <span data-en="CAD Design" data-pl="Projektowanie CAD">CAD Design</span></h3>
+                        <button class="dropdown-toggle" aria-expanded="false"><i class="fi fi-rr-angle-down"></i></button>
+                    </div>
+                    <p class="service-summary" data-en="Professional CAD modeling and technical drawings for industrial applications." data-pl="Profesjonalne modelowanie CAD i rysunki techniczne do zastosowań przemysłowych.">Professional CAD modeling and technical drawings for industrial applications.</p>
+                    <div class="service-dropdown">
+                        <div class="service-description">
+                            <h4 data-en="What We Offer:" data-pl="Co oferujemy:">What We Offer:</h4>
+                            <ul>
+                                <li data-en="2D and 3D CAD modeling" data-pl="Modelowanie CAD 2D i 3D">2D and 3D CAD modeling</li>
+                                <li data-en="Technical engineering drawings" data-pl="Rysunki techniczne inżynierskie">Technical engineering drawings</li>
+                                <li data-en="AutoCAD, SolidWorks, Fusion 360 expertise" data-pl="Wiedza z zakresu AutoCAD, SolidWorks, Fusion 360">AutoCAD, SolidWorks, Fusion 360 expertise</li>
+                                <li data-en="Design modifications and updates" data-pl="Modyfikacje i aktualizacje projektów">Design modifications and updates</li>
+                            </ul>
+                            <h4 data-en="Benefits:" data-pl="Korzyści:">Benefits:</h4>
+                            <p data-en="Accelerate your product development cycle. Our precise CAD models help you visualize concepts before manufacturing, reducing costly errors and iteration time." data-pl="Przyspiesz cykl opracowania produktu. Nasze precyzyjne modele CAD pomagają wizualizować koncepcje przed produkcją, zmniejszając błędy i czas iteracji.">Accelerate your product development cycle. Our precise CAD models help you visualize concepts before manufacturing, reducing costly errors and iteration time.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-header">
+                        <h3><i class="fi fi-rr-cube"></i> <span data-en="3D Scanning" data-pl="Skanowanie 3D">3D Scanning</span></h3>
+                        <button class="dropdown-toggle" aria-expanded="false"><i class="fi fi-rr-angle-down"></i></button>
+                    </div>
+                    <p class="service-summary" data-en="High-precision 3D scanning technology to capture and digitize physical objects." data-pl="Technologia skanowania 3D o wysokiej precyzji do przechwytywania i cyfrowania fizycznych obiektów.">High-precision 3D scanning technology to capture and digitize physical objects.</p>
+                    <div class="service-dropdown">
+                        <div class="service-description">
+                            <h4 data-en="What We Offer:" data-pl="Co oferujemy:">What We Offer:</h4>
+                            <ul>
+                                <li data-en="Laser and structured light scanning" data-pl="Skanowanie laserowe i światłem strukturalnym">Laser and structured light scanning</li>
+                                <li data-en="Industrial-grade accuracy (±0.1mm)" data-pl="Dokładność na poziomie przemysłowym (±0,1 mm)">Industrial-grade accuracy (±0.1mm)</li>
+                                <li data-en="Point cloud generation and processing" data-pl="Generowanie i przetwarzanie chmury punktów">Point cloud generation and processing</li>
+                                <li data-en="Surface reconstruction and mesh generation" data-pl="Rekonstrukcja powierzchni i generowanie siatki">Surface reconstruction and mesh generation</li>
+                            </ul>
+                            <h4 data-en="Benefits:" data-pl="Korzyści:">Benefits:</h4>
+                            <p data-en="Capture reality with precision. Perfect for documentation, quality control, and digitizing existing components for reproduction or modification." data-pl="Uchwycić rzeczywistość z precyzją. Idealne do dokumentacji, kontroli jakości i cyfryzacji istniejących komponentów do reprodukcji lub modyfikacji.">Capture reality with precision. Perfect for documentation, quality control, and digitizing existing components for reproduction or modification.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-header">
+                        <h3><i class="fi fi-rr-rotate-left"></i> <span data-en="Reverse Engineering" data-pl="Inżynieria wsteczna">Reverse Engineering</span></h3>
+                        <button class="dropdown-toggle" aria-expanded="false"><i class="fi fi-rr-angle-down"></i></button>
+                    </div>
+                    <p class="service-summary" data-en="Convert existing products into detailed CAD models through advanced scanning and analysis." data-pl="Konwertuj istniejące produkty na szczegółowe modele CAD poprzez zaawansowane skanowanie i analizę.">Convert existing products into detailed CAD models through advanced scanning and analysis.</p>
+                    <div class="service-dropdown">
+                        <div class="service-description">
+                            <h4 data-en="What We Offer:" data-pl="Co oferujemy:">What We Offer:</h4>
+                            <ul>
+                                <li data-en="3D to CAD conversion" data-pl="Konwersja 3D do CAD">3D to CAD conversion</li>
+                                <li data-en="Complex component analysis" data-pl="Analiza złożonych komponentów">Complex component analysis</li>
+                                <li data-en="Part reproduction documentation" data-pl="Dokumentacja reprodukcji części">Part reproduction documentation</li>
+                                <li data-en="Design improvement suggestions" data-pl="Sugestie ulepszenia projektów">Design improvement suggestions</li>
+                            </ul>
+                            <h4 data-en="Benefits:" data-pl="Korzyści:">Benefits:</h4>
+                            <p data-en="Unlock legacy designs. Whether for preservation, modification, or reproduction, we convert physical products into editable digital models." data-pl="Odblokuj starsze projekty. Niezależnie od tego, czy chodzi o konserwację, modyfikację lub reprodukcję, konwertujemy produkty fizyczne na edytowalne modele cyfrowe.">Unlock legacy designs. Whether for preservation, modification, or reproduction, we convert physical products into editable digital models.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-header">
+                        <h3><i class="fi fi-rr-layers"></i> <span data-en="3D Printing" data-pl="Druk 3D">3D Printing</span></h3>
+                        <button class="dropdown-toggle" aria-expanded="false"><i class="fi fi-rr-angle-down"></i></button>
+                    </div>
+                    <p class="service-summary" data-en="Prototype development and manufacturing using state-of-the-art 3D printing technology." data-pl="Opracowanie prototypów i produkcja przy użyciu najnowocześniejszej technologii druku 3D.">Prototype development and manufacturing using state-of-the-art 3D printing technology.</p>
+                    <div class="service-dropdown">
+                        <div class="service-description">
+                            <h4 data-en="What We Offer:" data-pl="Co oferujemy:">What We Offer:</h4>
+                            <ul>
+                                <li data-en="FDM, SLA, and SLS printing" data-pl="Druk FDM, SLA i SLS">FDM, SLA, and SLS printing</li>
+                                <li data-en="Material selection consultation" data-pl="Konsultacja w sprawie wyboru materiału">Material selection consultation</li>
+                                <li data-en="Rapid prototyping services" data-pl="Usługi szybkiego prototypowania">Rapid prototyping services</li>
+                                <li data-en="Post-processing and finishing" data-pl="Post-przetwarzanie i wykończenie">Post-processing and finishing</li>
+                            </ul>
+                            <h4 data-en="Benefits:" data-pl="Korzyści:">Benefits:</h4>
+                            <p data-en="From concept to physical reality. Rapidly prototype and iterate designs, test functionality, and produce end-use parts with precision." data-pl="Od koncepcji do fizycznej rzeczywistości. Szybko prototypuj i iteruj projekty, testuj funkcjonalność i produkuj części finalne z precyzją.">From concept to physical reality. Rapidly prototype and iterate designs, test functionality, and produce end-use parts with precision.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2><i class="fi fi-rr-folder"></i> <span data-en="Featured Projects" data-pl="Wyróżnione projekty">Featured Projects</span></h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3 data-en="Industrial Machinery CAD" data-pl="CAD maszyn przemysłowych">Industrial Machinery CAD</h3>
+                    <p data-en="Complete CAD design package for industrial manufacturing equipment." data-pl="Kompleksowy pakiet projektowania CAD dla urządzeń produkcji przemysłowej.">Complete CAD design package for industrial manufacturing equipment.</p>
+                </div>
+                <div class="project-card">
+                    <h3 data-en="Precision Component Scanning" data-pl="Skanowanie precyzyjnych komponentów">Precision Component Scanning</h3>
+                    <p data-en="High-accuracy 3D scan of complex mechanical components." data-pl="Skan 3D z wysoka dokładnością złożonych komponentów mechanicznych.">High-accuracy 3D scan of complex mechanical components.</p>
+                </div>
+                <div class="project-card">
+                    <h3 data-en="Heritage Object Digitization" data-pl="Cyfryzacja obiektów dziedzictwa">Heritage Object Digitization</h3>
+                    <p data-en="3D digital preservation of historical artifacts and structures." data-pl="Cyfrowa ochrona 3D zabytkowych artefaktów i struktur.">3D digital preservation of historical artifacts and structures.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2><i class="fi fi-rr-image"></i> <span data-en="Gallery" data-pl="Galeria">Gallery</span></h2>
+            <div class="gallery-carousel">
+                <button class="carousel-arrow prev" onclick="slideGallery(-1)"><i class="fi fi-rr-angle-left"></i></button>
+                <div id="galleryContainer" class="gallery-grid">
+                    <!-- Images will be populated here -->
+                </div>
+                <button class="carousel-arrow next" onclick="slideGallery(1)"><i class="fi fi-rr-angle-right"></i></button>
+            </div>
+            <div id="galleryIndicators" class="carousel-indicators"></div>
+        </div>
+    </section>
+
+    <!-- Gallery Lightbox Modal -->
+    <div id="galleryLightbox" class="lightbox hidden" aria-hidden="true">
+        <div class="lightbox-content" role="dialog" aria-modal="true" aria-label="Gallery viewer">
+            <button class="lightbox-close" aria-label="Close" onclick="closeGalleryLightbox()">
+                <i class="fi fi-rr-cross-small"></i>
+            </button>
+            <button class="lightbox-arrow prev" onclick="lightboxPrev()" aria-label="Previous image">
+                <i class="fi fi-rr-angle-left"></i>
+            </button>
+            <div class="lightbox-image-wrapper">
+                <img id="lightboxImage" alt="Gallery item" />
+                <div id="lightboxPlaceholder" class="lightbox-placeholder">
+                    <i class="fi fi-rr-image"></i>
+                    <p data-en="No image yet" data-pl="Brak zdjęcia">No image yet</p>
+                </div>
+            </div>
+            <button class="lightbox-arrow next" onclick="lightboxNext()" aria-label="Next image">
+                <i class="fi fi-rr-angle-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us">
+        <div class="container">
+            <h2><i class="fi fi-rr-star"></i> <span data-en="Why Choose S-TECH" data-pl="Dlaczego wybrać S-TECH">Why Choose S-TECH</span></h2>
+            <p data-en="We deliver excellence in every project through precision, innovation, and dedication" data-pl="Dostarczamy doskonałość w każdym projekcie dzięki precyzji, innowacji i zaangażowaniu">We deliver excellence in every project through precision, innovation, and dedication</p>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fi fi-rr-shield-check"></i></div>
+                    <h3 data-en="Proven Expertise" data-pl="Sprawdzona wiedza">Proven Expertise</h3>
+                    <p data-en="15+ years of industry experience and trusted by hundreds of clients" data-pl="15+ lat doświadczenia branżowego i zaufanie setek klientów">15+ years of industry experience and trusted by hundreds of clients</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fi fi-rr-bolt"></i></div>
+                    <h3 data-en="Fast Turnaround" data-pl="Szybki czas realizacji">Fast Turnaround</h3>
+                    <p data-en="Efficient processes ensure your projects are completed on schedule" data-pl="Efektywne procesy zapewniają, że projekty są realizowane na czas">Efficient processes ensure your projects are completed on schedule</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fi fi-rr-lock"></i></div>
+                    <h3 data-en="Confidentiality" data-pl="Poufność">Confidentiality</h3>
+                    <p data-en="Your designs and data are protected with NDA and enterprise-grade security" data-pl="Twoje projekty i dane są chronione NDA i bezpieczeństwem na poziomie przedsiębiorstwa">Your designs and data are protected with NDA and enterprise-grade security</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fi fi-rr-check-circle"></i></div>
+                    <h3 data-en="Quality Guaranteed" data-pl="Gwarancja jakości">Quality Guaranteed</h3>
+                    <p data-en="Industry-leading accuracy and precision in every deliverable" data-pl="Wiodąca dokładność i precyzja w każdym dostarczeniu">Industry-leading accuracy and precision in every deliverable</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fi fi-rr-heart"></i></div>
+                    <h3 data-en="Customer Support" data-pl="Wsparcie klienta">Customer Support</h3>
+                    <p data-en="24/7 dedicated support team ready to assist you anytime" data-pl="Zespół wsparcia 24/7 gotów do pomocy w każdej chwili">24/7 dedicated support team ready to assist you anytime</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fi fi-rr-rocket"></i></div>
+                    <h3 data-en="Cutting Edge Tech" data-pl="Technologia przodująca">Cutting Edge Tech</h3>
+                    <p data-en="Using latest tools and technologies for superior results" data-pl="Korzystając z najnowszych narzędzi i technologii dla doskonałych wyników">Using latest tools and technologies for superior results</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <h2><i class="fi fi-rr-star"></i> <span data-en="Why Choose S-TECH?" data-pl="Dlaczego wybrać S-TECH?">Why Choose S-TECH?</span></h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" data-value="500+">0</div>
+                    <div class="stat-label" data-en="Projects Completed" data-pl="Ukończonych projektów">Projects Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-value="15+">0</div>
+                    <div class="stat-label" data-en="Years Experience" data-pl="Lat doświadczenia">Years Experience</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-value="98%">0</div>
+                    <div class="stat-label" data-en="Client Satisfaction" data-pl="Zadowolenie klientów">Client Satisfaction</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-value="24/7">24/7</div>
+                    <div class="stat-label" data-en="Support Available" data-pl="Dostępna pomoc">Support Available</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2><i class="fi fi-rr-comment"></i> <span data-en="Client Testimonials" data-pl="Opinie klientów">Client Testimonials</span></h2>
+            <p data-en="What our satisfied clients say about our services" data-pl="Co mówią o nas zadowoleni klienci">What our satisfied clients say about our services</p>
+            
+            <div class="testimonials-carousel">
+                <button class="carousel-arrow prev" onclick="slideTestimonials(-1)"><i class="fi fi-rr-arrow-left"></i></button>
+                
+                <div class="testimonials-grid" id="testimonialsContainer">
+                    <!-- Reviews will be loaded here by JavaScript -->
+                </div>
+                
+                <button class="carousel-arrow next" onclick="slideTestimonials(1)"><i class="fi fi-rr-arrow-right"></i></button>
+            </div>
+            
+            <div class="carousel-indicators" id="carouselIndicators"></div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process">
+        <div class="container">
+            <h2><i class="fi fi-rr-flow-chart"></i> <span data-en="Our Process" data-pl="Nasz proces">Our Process</span></h2>
+            <p data-en="How we deliver exceptional results, step by step" data-pl="Jak dostarczamy wyjątkowe rezultaty, krok po kroku">How we deliver exceptional results, step by step</p>
+            <div class="process-timeline">
+                <div class="process-step">
+                    <div class="process-number"><i class="fi fi-rr-comments"></i></div>
+                    <h3 data-en="Consultation" data-pl="Konsultacja">Consultation</h3>
+                    <p data-en="We understand your project requirements and goals in detail." data-pl="Szczegółowo poznajemy wymagania i cele Twojego projektu.">We understand your project requirements and goals in detail.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-number"><i class="fi fi-rr-search"></i></div>
+                    <h3 data-en="Analysis" data-pl="Analiza">Analysis</h3>
+                    <p data-en="Our experts analyze your needs and develop a strategic approach." data-pl="Nasi eksperci analizują Twoje potrzeby i opracowują strategię.">Our experts analyze your needs and develop a strategic approach.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-number"><i class="fi fi-rr-settings"></i></div>
+                    <h3 data-en="Execution" data-pl="Realizacja">Execution</h3>
+                    <p data-en="We implement the solution using cutting-edge technology and expertise." data-pl="Wdrażamy rozwiązanie korzystając z najnowszej technologii.">We implement the solution using cutting-edge technology and expertise.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-number"><i class="fi fi-rr-arrow-right"></i></div>
+                    <h3 data-en="Delivery" data-pl="Dostawa">Delivery</h3>
+                    <p data-en="High-quality results delivered on time with full documentation." data-pl="Wysokiej jakości rezultaty dostarczone na czas z pełną dokumentacją.">High-quality results delivered on time with full documentation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="tech-stack">
+        <div class="container">
+            <h2><i class="fi fi-rr-tools"></i> <span data-en="Technologies We Use" data-pl="Technologie jakie stosujemy">Technologies We Use</span></h2>
+            <p data-en="Industry-leading tools and software for superior results" data-pl="Narzędzia i oprogramowanie wiodące w branży dla doskonałych wyników">Industry-leading tools and software for superior results</p>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <i class="fi fi-rr-cube"></i>
+                    <p>AutoCAD</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fi fi-rr-cube"></i>
+                    <p>SolidWorks</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fi fi-rr-cube"></i>
+                    <p>Fusion 360</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fi fi-rr-cube"></i>
+                    <p>Blender</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fi fi-rr-box"></i>
+                    <p>3D Systems</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fi fi-rr-layers"></i>
+                    <p>Ultimaker</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fi fi-rr-layers"></i>
+                    <p>Formlabs</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fi fi-rr-check"></i>
+                    <p>RapidForm</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2><i class="fi fi-rr-info"></i> <span data-en="About S-TECH Industry" data-pl="O firmie S-TECH Industry">About S-TECH Industry</span></h2>
+            <p data-en="S-TECH Industry specializes in cutting-edge CAD design and 3D scanning technologies. With years of expertise, we deliver precision-engineered solutions for industrial, manufacturing, and creative sectors." data-pl="S-TECH Industry specjalizuje się w najnowocześniejszych technologiach projektowania CAD i skanowania 3D. Z wieloletnim doświadczeniem dostarczamy precyzyjnie inżynierowane rozwiązania dla sektorów przemysłowych, produkcyjnych i kreatywnych.">S-TECH Industry specializes in cutting-edge CAD design and 3D scanning technologies. With years of expertise, we deliver precision-engineered solutions for industrial, manufacturing, and creative sectors.</p>
+            <ul class="features">
+                <li><i class="fi fi-rr-cube"></i> <span data-en="Advanced 3D Scanning Technology" data-pl="Zaawansowana technologia skanowania 3D">Advanced 3D Scanning Technology</span></li>
+                <li><i class="fi fi-rr-users"></i> <span data-en="Expert CAD Design Team" data-pl="Zespół ekspertów do projektowania CAD">Expert CAD Design Team</span></li>
+                <li><i class="fi fi-rr-bolt"></i> <span data-en="Fast Turnaround Times" data-pl="Szybkie czasy realizacji">Fast Turnaround Times</span></li>
+                <li><i class="fi fi-rr-check"></i> <span data-en="Quality Assurance" data-pl="Zapewnienie jakości">Quality Assurance</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2><i class="fi fi-rr-comment"></i> <span data-en="Frequently Asked Questions" data-pl="Często zadawane pytania">Frequently Asked Questions</span></h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-en="What is the typical turnaround time for CAD projects?" data-pl="Jaki jest typowy czas realizacji projektów CAD?">What is the typical turnaround time for CAD projects?</span>
+                        <i class="fi fi-rr-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-en="Turnaround times depend on project complexity. Simple designs typically take 3-5 business days, while complex projects may take 2-4 weeks. We provide accurate timelines after initial project assessment." data-pl="Czasy realizacji zależą od złożoności projektu. Proste projekty zwykle trwają 3-5 dni roboczych, a skomplikowane mogą trwać 2-4 tygodnie. Podajemy dokładne terminy po wstępnej ocenie projektu.">Turnaround times depend on project complexity. Simple designs typically take 3-5 business days, while complex projects may take 2-4 weeks. We provide accurate timelines after initial project assessment.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-en="What file formats do you support for CAD models?" data-pl="Jakie formaty plików obsługujesz dla modeli CAD?">What file formats do you support for CAD models?</span>
+                        <i class="fi fi-rr-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-en="We support all major CAD formats including STEP, IGES, DWG, DXF, STL, OBJ, and proprietary formats like .rvt, .prt, and .sldprt. We can convert between formats as needed for your project requirements." data-pl="Obsługujemy wszystkie główne formaty CAD, w tym STEP, IGES, DWG, DXF, STL, OBJ i formaty właściwe, takie jak .rvt, .prt i .sldprt. Możemy konwertować między formatami zgodnie z wymaganiami Twojego projektu.">We support all major CAD formats including STEP, IGES, DWG, DXF, STL, OBJ, and proprietary formats like .rvt, .prt, and .sldprt. We can convert between formats as needed for your project requirements.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-en="How accurate is your 3D scanning technology?" data-pl="Jak dokładna jest twoja technologia skanowania 3D?">How accurate is your 3D scanning technology?</span>
+                        <i class="fi fi-rr-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-en="Our laser and structured light scanning systems achieve accuracy of ±0.1mm for most objects. The exact accuracy depends on object size, material properties, and surface finish. We provide detailed accuracy reports for each scan." data-pl="Nasze systemy skanowania laserowego i światłem strukturalnym osiągają dokładność ±0,1 mm dla większości obiektów. Dokładna dokładność zależy od rozmiaru obiektu, właściwości materiału i wykończenia powierzchni. Dla każdego skanu udostępniamy szczegółowe raporty dokładności.">Our laser and structured light scanning systems achieve accuracy of ±0.1mm for most objects. The exact accuracy depends on object size, material properties, and surface finish. We provide detailed accuracy reports for each scan.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-en="Can you work with confidential designs?" data-pl="Czy możesz pracować z poufnymi projektami?">Can you work with confidential designs?</span>
+                        <i class="fi fi-rr-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-en="Yes, absolutely. We take confidentiality very seriously and can sign NDAs to protect your intellectual property. All client data is stored securely." data-pl="Tak, oczywiście. Poufność bierzemy bardzo poważnie i możemy podpisać umowy NDA w celu ochrony Twojej własności intelektualnej. Wszystkie dane klienta są przechowywane bezpiecznie.">Yes, absolutely. We take confidentiality very seriously and can sign NDAs to protect your intellectual property. All client data is stored securely.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-en="Do you offer rush or expedited services?" data-pl="Czy oferujesz usługi w trybie przyspieszonym?">Do you offer rush or expedited services?</span>
+                        <i class="fi fi-rr-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-en="We can accommodate rush projects when availability allows. Expedited services may incur additional fees. Contact us to discuss your timeline requirements." data-pl="Możemy obsługiwać projekty urgentne, gdy pozwala nam to dostępność. Usługi przyspieszane mogą wiąać się z dodatkowymi opłatami. Skontaktuj się z nami, aby omówić wymagania dotyczące terminów.">We can accommodate rush projects when availability allows. Expedited services may incur additional fees. Contact us to discuss your timeline requirements.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-en="What is your pricing model?" data-pl="Jaki jest twój model cenowy?">What is your pricing model?</span>
+                        <i class="fi fi-rr-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-en="Our pricing depends on project scope and complexity. CAD projects are quoted hourly or as fixed bids. 3D printing costs depend on material volume. Contact us for a detailed quote." data-pl="Nasze ceny zależą od zakresu i złożoności projektu. Projekty CAD są wyceniane godzinowo lub jako oferty stałe. Koszty druku 3D zależą od objętości materiału. Skontaktuj się z nami w celu uzyskania wyceny.">Our pricing depends on project scope and complexity. CAD projects are quoted hourly or as fixed bids. 3D printing costs depend on material volume. Contact us for a detailed quote.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2><i class="fi fi-rr-envelope"></i> <span data-en="Contact Us" data-pl="Skontaktuj się z nami">Contact Us</span></h2>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" data-placeholder-en="Your Name" data-placeholder-pl="Twoje imię" required>
+                <input type="email" placeholder="Your Email" data-placeholder-en="Your Email" data-placeholder-pl="Twój e-mail" required>
+                <textarea placeholder="Your Message" data-placeholder-en="Your Message" data-placeholder-pl="Twoja wiadomość" rows="5" required></textarea>
+                <button type="submit" class="submit-btn" data-en="Send Message" data-pl="Wyślij wiadomość">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- CTA Newsletter Section -->
+    <section class="cta-newsletter">
+        <div class="container">
+            <div class="cta-content">
+                <h2 data-en="Stay Updated with Latest CAD & 3D Solutions" data-pl="Bądź na bieżąco z najnowszymi rozwiązaniami CAD i 3D">Stay Updated with Latest CAD & 3D Solutions</h2>
+                <p data-en="Subscribe to our newsletter for industry insights, project updates, and exclusive offers." data-pl="Subskrybuj nasz newsletter, aby otrzymywać wiedzę branżową, aktualizacje projektów i oferty specjalne.">Subscribe to our newsletter for industry insights, project updates, and exclusive offers.</p>
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="email" placeholder="your@email.com" required>
+                    <button type="submit" class="newsletter-btn" data-en="Subscribe" data-pl="Subskrybuj">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>S-TECH Industry</h3>
+                    <p data-en="Precision engineering through cutting-edge technology and expertise." data-pl="Precyzyjna inżynieria dzięki najnowocześniejszej technologii.">Precision engineering through cutting-edge technology and expertise.</p>
+                </div>
+                <div class="footer-section">
+                    <h3 data-en="Services" data-pl="Usługi">Services</h3>
+                    <ul>
+                        <li><a href="#services" data-en="CAD Design" data-pl="Projektowanie CAD">CAD Design</a></li>
+                        <li><a href="#services" data-en="3D Scanning" data-pl="Skanowanie 3D">3D Scanning</a></li>
+                        <li><a href="#services" data-en="Reverse Engineering" data-pl="Inżynieria wsteczna">Reverse Engineering</a></li>
+                        <li><a href="#services" data-en="3D Printing" data-pl="Druk 3D">3D Printing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 data-en="Contact" data-pl="Kontakt">Contact</h3>
+                    <p id="footerEmail">Email: info@s-tech.com</p>
+                    <p id="footerPhone">Phone: +48 (123) 456-7890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-en="&copy; 2026 S-TECH Industry. All rights reserved." data-pl="&copy; 2026 S-TECH Industry. Wszystkie prawa zastrzeżone.">&copy; 2026 S-TECH Industry. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-top-btn" title="Back to top">
+        <i class="fi fi-rr-arrow-up"></i>
+    </button>
+
+    <script src="languages.js"></script>
+</body>
+</html>

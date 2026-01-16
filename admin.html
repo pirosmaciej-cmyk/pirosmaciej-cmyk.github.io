@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S-TECH Admin Control Panel</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <style>
+        body {
+            background: var(--bg-primary);
+        }
+        
+        body.dark-mode-default {
+            --primary-color: #2d3f5f;
+            --primary-dark: #1a1a2e;
+            --primary-light: #4a5f8f;
+            --accent-color: #00ff00;
+            --accent-light: #33ff33;
+            --secondary-color: #c77dff;
+            --text-primary: #ffffff;
+            --text-secondary: #d0d7e0;
+            --bg-primary: #1a1f2e;
+            --bg-secondary: #0f1419;
+            --bg-tertiary: #252e3f;
+            --border-color: #2d3a52;
+            --card-shadow: 0 2px 8px rgba(0, 255, 0, 0.1);
+            --card-shadow-hover: 0 8px 16px rgba(0, 255, 0, 0.15);
+        }
+        
+        .admin-container {
+            display: flex;
+            height: 100vh;
+            background: var(--bg-primary);
+        }
+        
+        .admin-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #001233 100%);
+            padding: 20px;
+        }
+        
+        .admin-login-box {
+            background: var(--bg-primary);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .admin-login-box h1 {
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        
+        .admin-login-box .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .admin-login-box label {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .admin-login-box input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        
+        .admin-login-box input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 12px rgba(0, 255, 0, 0.3);
+        }
+        
+        .admin-login-box button {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent-color);
+            border: none;
+            color: #1a1a2e;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-login-box button:hover {
+            background: rgba(0, 255, 0, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 255, 0, 0.3);
+        }
+        
+        .admin-error {
+            color: #ff4444;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .admin-dashboard {
+            display: none;
+            width: 100%;
+            padding: 3rem;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1.5rem;
+        }
+        
+        .admin-header h1 {
+            color: var(--accent-color);
+            font-size: 2rem;
+        }
+        
+        .admin-logout-btn {
+            padding: 10px 20px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-logout-btn:hover {
+            background: #cc0000;
+            transform: scale(1.05);
+        }
+        
+        .theme-toggle-btn, .lang-toggle-btn {
+            padding: 8px 16px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .theme-toggle-btn:hover, .lang-toggle-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .stat-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 8px 16px rgba(0, 255, 0, 0.15);
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .stat-value {
+            color: var(--accent-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-input {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+        
+        .save-btn {
+            width: 100%;
+            padding: 8px;
+            background: var(--accent-color);
+            color: #1a1a2e;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+        
+        .save-btn:hover {
+            background: rgba(0, 255, 0, 0.9);
+            box-shadow: 0 4px 12px rgba(0, 255, 0, 0.3);
+        }
+        
+        body.dark-mode .stat-input {
+            background: var(--bg-secondary);
+        }
+        
+        .back-link {
+            display: inline-block;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+        
+        .admin-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .admin-tab-btn {
+            padding: 10px 20px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-tab-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #1a1a2e;
+        }
+        
+        .admin-tab-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .admin-tab-content {
+            display: none;
+        }
+        
+        .admin-tab-content.active {
+            display: block;
+        }
+        
+        .review-item {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .review-form {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .review-form input,
+        .review-form textarea,
+        .review-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+        
+        .review-form input:focus,
+        .review-form textarea:focus,
+        .review-form select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(0, 255, 0, 0.2);
+        }
+        
+        .review-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .delete-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .delete-btn:hover {
+            background: #cc0000;
+            transform: scale(1.05);
+        }
+        
+        .add-btn {
+            background: var(--accent-color);
+            color: #1a1a2e;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        
+        .add-btn:hover {
+            background: rgba(0, 255, 0, 0.9);
+            box-shadow: 0 4px 12px rgba(0, 255, 0, 0.3);
+        }
+        
+        .rating {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .star {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .star:hover {
+            transform: scale(1.2);
+        }
+        
+        .star.active {
+            color: var(--accent-color);
+        }
+
+        /* Admin Gallery Styles */
+        .dropzone {
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .dropzone:hover, .dropzone.dragover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            box-shadow: 0 0 12px rgba(0, 255, 0, 0.2);
+        }
+        .thumb-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+        .thumb {
+            position: relative;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            cursor: move;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .thumb:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-2px);
+        }
+        .thumb.dragging {
+            opacity: 0.4;
+        }
+        .thumb-order {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(0, 255, 0, 0.9);
+            color: #1a1a2e;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            z-index: 2;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/3; }
+        .thumb-remove {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            border: none;
+            background: #ff4444;
+            color: #fff;
+            width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .thumb-remove:hover { background: #cc0000; }
+    </style>
+</head>
+<body class="dark-mode-default">
+    <div class="admin-container">
+        <!-- Login Form -->
+        <div class="admin-login" id="loginContainer">
+            <div class="admin-login-box">
+                <h1>S-TECH Admin</h1>
+                <div class="admin-error" id="errorMessage" style="display: none;"></div>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="password">Admin Password</label>
+                        <input type="password" id="password" required placeholder="Enter password">
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Dashboard -->
+        <div class="admin-dashboard" id="dashboardContainer">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <a href="index.html" class="back-link"><i class="fi fi-rr-arrow-left"></i> <span data-en="Back to Site" data-pl="Powrót do strony">Back to Site</span></a>
+                
+                <div class="admin-header">
+                    <h1 data-en="Admin Dashboard" data-pl="Panel Administratora">Admin Dashboard</h1>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <button id="admin-theme-btn" class="theme-toggle-btn" title="Toggle Dark Mode">
+                            <i class="fi fi-rr-moon"></i>
+                        </button>
+                        <button id="admin-lang-btn" class="lang-toggle-btn">EN / PL</button>
+                        <button class="admin-logout-btn" onclick="logout()" data-en="Logout" data-pl="Wyloguj">Logout</button>
+                    </div>
+                </div>
+                
+                <h2 style="color: var(--accent-color); margin-bottom: 2rem;" data-en="Company Statistics" data-pl="Statystyki Firmy">Company Statistics</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label" data-en="Total Projects" data-pl="Całkowite Projekty">Total Projects</div>
+                        <div class="stat-value" id="projectsValue">500</div>
+                        <input type="number" class="stat-input" id="projectsInput" placeholder="Enter value">
+                        <button class="save-btn" onclick="saveStat('projects')" data-en="Save" data-pl="Zapisz">Save</button>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-label" data-en="Years Experience" data-pl="Lat Doświadczenia">Years Experience</div>
+                        <div class="stat-value" id="yearsValue">15</div>
+                        <input type="number" class="stat-input" id="yearsInput" placeholder="Enter value">
+                        <button class="save-btn" onclick="saveStat('years')" data-en="Save" data-pl="Zapisz">Save</button>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-label" data-en="Client Satisfaction" data-pl="Zadowolenie Klientów">Client Satisfaction</div>
+                        <div class="stat-value" id="satisfactionValue">98</div>
+                        <input type="number" class="stat-input" id="satisfactionInput" placeholder="Enter value" max="100">
+                        <button class="save-btn" onclick="saveStat('satisfaction')" data-en="Save" data-pl="Zapisz">Save</button>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-label" data-en="24/7 Support Hours" data-pl="Wsparcie 24/7">24/7 Support Hours</div>
+                        <div class="stat-value" id="supportValue">24</div>
+                        <input type="number" class="stat-input" id="supportInput" placeholder="Enter value">
+                        <button class="save-btn" onclick="saveStat('support')" data-en="Save" data-pl="Zapisz">Save</button>
+                    </div>
+                </div>
+                
+                <!-- Admin Tabs -->
+                <div class="admin-tabs">
+                    <button class="admin-tab-btn active" onclick="switchTab('info')" data-en="Information" data-pl="Informacje">Information</button>
+                    <button class="admin-tab-btn" onclick="switchTab('reviews')" data-en="Client Reviews" data-pl="Opinie Klientów">Client Reviews</button>
+                    <button class="admin-tab-btn" onclick="switchTab('contact')" data-en="Contact Info" data-pl="Dane Kontaktowe">Contact Info</button>
+                    <button class="admin-tab-btn" onclick="switchTab('gallery')" data-en="Gallery" data-pl="Galeria">Gallery</button>
+                    <button class="admin-tab-btn" onclick="switchTab('settings')" data-en="Settings" data-pl="Ustawienia">Settings</button>
+                </div>
+                
+                <!-- Tab: Information -->
+                <div class="admin-tab-content active" id="info-tab">
+                    <div style="padding-top: 2rem; border-top: 2px solid var(--border-color);">
+                        <h3 style="color: var(--text-primary); margin-bottom: 1rem;" data-en="Admin Information" data-pl="Informacje Administracyjne">Admin Information</h3>
+                        <p style="color: var(--text-secondary); line-height: 1.8;">
+                            <strong>Secret Access:</strong> Type <strong>tpiros@op.pl</strong> in the newsletter subscription field on the main site and click Subscribe to access this admin panel.<br>
+                            <strong>Admin Password:</strong> <code style="background: var(--bg-secondary); padding: 4px 8px; border-radius: 4px;">admin</code><br>
+                            <strong>Stats Storage:</strong> All changes are saved to your browser's local storage and persist across sessions.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Tab: Reviews -->
+                <div class="admin-tab-content" id="reviews-tab">
+                    <div style="padding-top: 2rem;">
+                        <h3 style="color: var(--accent-color); margin-bottom: 2rem;" data-en="Manage Client Reviews" data-pl="Zarządzaj Opiniami Klientów">Manage Client Reviews</h3>
+                        
+                        <div class="review-form">
+                            <h4 style="color: var(--text-primary); margin-bottom: 1rem;" data-en="Add New Review" data-pl="Dodaj Nową Opinię">Add New Review</h4>
+                            <div class="form-row">
+                                <input type="text" id="reviewName" placeholder="Client Name" required>
+                                <input type="text" id="reviewCompany" placeholder="Company (optional)">
+                            </div>
+                            <textarea id="reviewText" placeholder="Review text (English)" required></textarea>
+                            <textarea id="reviewTextPL" placeholder="Review text (Polish)" required></textarea>
+                            <div style="margin-bottom: 1rem;">
+                                <label style="color: var(--text-secondary); display: block; margin-bottom: 0.5rem;">Rating (1-5 stars)</label>
+                                <div class="rating" id="reviewRating">
+                                    <span class="star" onclick="setRating(1)">★</span>
+                                    <span class="star" onclick="setRating(2)">★</span>
+                                    <span class="star" onclick="setRating(3)">★</span>
+                                    <span class="star" onclick="setRating(4)">★</span>
+                                    <span class="star" onclick="setRating(5)">★</span>
+                                </div>
+                            </div>
+                            <button class="add-btn" onclick="addReview()" data-en="Add Review" data-pl="Dodaj Opinię">Add Review</button>
+                        </div>
+                        
+                        <h4 style="color: var(--text-primary); margin: 2rem 0 1rem;" data-en="Current Reviews" data-pl="Aktualne Opinie">Current Reviews</h4>
+                        <div id="reviewsList"></div>
+                    </div>
+                </div>
+                
+                <!-- Tab: Contact Info -->
+                <div class="admin-tab-content" id="contact-tab">
+                    <div style="padding-top: 2rem;">
+                        <h3 style="color: var(--accent-color); margin-bottom: 2rem;" data-en="Company Contact Information" data-pl="Dane Kontaktowe Firmy">Company Contact Information</h3>
+                        
+                        <div class="review-form">
+                            <h4 style="color: var(--text-primary); margin-bottom: 1rem;" data-en="Update Contact Details" data-pl="Zaktualizuj Dane Kontaktowe">Update Contact Details</h4>
+                            <input type="email" id="contactEmail" placeholder="Email Address" required>
+                            <input type="tel" id="contactPhone" placeholder="Phone Number" required>
+                            <textarea id="contactAddress" placeholder="Address" required></textarea>
+                            <button class="add-btn" onclick="saveContact()" data-en="Save Contact Info" data-pl="Zapisz Dane Kontaktowe">Save Contact Info</button>
+                        </div>
+                        
+                        <div style="margin-top: 2rem; padding: 1.5rem; background: var(--bg-secondary); border-radius: 8px; border-left: 4px solid var(--accent-color);">
+                            <p style="color: var(--text-secondary); margin-bottom: 0.5rem;"><strong>Current Contact Info:</strong></p>
+                            <p style="color: var(--text-primary); margin: 0.5rem 0;" id="displayEmail">Email: Loading...</p>
+                            <p style="color: var(--text-primary); margin: 0.5rem 0;" id="displayPhone">Phone: Loading...</p>
+                            <p style="color: var(--text-primary); margin: 0.5rem 0;" id="displayAddress">Address: Loading...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Gallery -->
+                <div class="admin-tab-content" id="gallery-tab">
+                    <div style="padding-top: 2rem;">
+                        <h3 style="color: var(--accent-color); margin-bottom: 2rem;" data-en="Manage Gallery Images" data-pl="Zarządzaj Zdjęciami Galerii">Manage Gallery Images</h3>
+                        <div class="review-form">
+                            <h4 style="color: var(--text-primary); margin-bottom: 1rem;" data-en="Upload Images" data-pl="Prześlij Zdjęcia">Upload Images</h4>
+                            <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem;" data-en="Drag images to reorder them. Click trash icon to remove." data-pl="Przeciągnij zdjęcia, aby zmienić kolejność. Kliknij ikonę kosza, aby usunąć.">Drag images to reorder them. Click trash icon to remove.</p>
+                            <div id="galleryDropzone" class="dropzone" tabindex="0">
+                                <i class="fi fi-rr-upload"></i>
+                                <p style="margin-top: 0.5rem;">Drag & drop images here or click to select</p>
+                                <input type="file" id="galleryFileInput" accept="image/*" multiple style="display:none;" />
+                            </div>
+                            <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                                <button class="add-btn" onclick="document.getElementById('galleryFileInput').click();" data-en="Select Files" data-pl="Wybierz Pliki">Select Files</button>
+                                <button class="add-btn" onclick="saveAdminGallery()" data-en="Save Gallery" data-pl="Zapisz Galerię">Save Gallery</button>
+                            </div>
+                        </div>
+                        <h4 style="color: var(--text-primary); margin: 2rem 0 1rem;" data-en="Current Images" data-pl="Aktualne Zdjęcia">Current Images</h4>
+                        <div id="adminGalleryThumbs" class="thumb-grid"></div>
+                    </div>
+                </div>
+
+                <!-- Tab: Settings -->
+                <div class="admin-tab-content" id="settings-tab">
+                    <div style="padding-top: 2rem;">
+                        <h3 style="color: var(--accent-color); margin-bottom: 2rem;" data-en="Account Settings" data-pl="Ustawienia Konta">Account Settings</h3>
+                        <div class="review-form">
+                            <h4 style="color: var(--text-primary); margin-bottom: 1rem;" data-en="Change Admin Password" data-pl="Zmień Hasło Administratora">Change Admin Password</h4>
+                            <input type="password" id="currentPassword" placeholder="Current password" required>
+                            <input type="password" id="newPassword" placeholder="New password (min 8 chars, mixed case + numbers)" required>
+                            <input type="password" id="confirmPassword" placeholder="Confirm new password" required>
+                            <button class="add-btn" onclick="changeAdminPassword()" data-en="Change Password" data-pl="Zmień Hasło">Change Password</button>
+                        </div>
+                        <p style="color: var(--text-secondary);">Default password is <strong>admin</strong>. Change it immediately for better security.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Security utilities
+        function hashPassword(password) {
+            // Simple hash function for client-side (SHA-256 would require crypto API)
+            let hash = 0;
+            for (let i = 0; i < password.length; i++) {
+                const char = password.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return hash.toString(36);
+        }
+        
+        function sanitizeHTML(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+        
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+        
+        function validatePhone(phone) {
+            return /^[+\d\s()-]{7,}$/.test(phone);
+        }
+
+        // Admin Authentication
+        
+        function checkAuth() {
+            const auth = localStorage.getItem('stech_admin_auth');
+            if (auth === 'true') {
+                showDashboard();
+            }
+        }
+        
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMessage');
+            const storedPasswordHash = localStorage.getItem('stech_admin_password') || hashPassword('admin');
+            
+            if (hashPassword(password) === storedPasswordHash) {
+                localStorage.setItem('stech_admin_auth', 'true');
+                showDashboard();
+            } else {
+                errorMsg.style.display = 'block';
+                errorMsg.textContent = 'Invalid password. Try again.';
+                document.getElementById('password').value = '';
+            }
+        });
+        
+        function showDashboard() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('dashboardContainer').style.display = 'block';
+            loadStats();
+        }
+        
+        function logout() {
+            localStorage.removeItem('stech_admin_auth');
+            document.getElementById('loginContainer').style.display = 'flex';
+            document.getElementById('dashboardContainer').style.display = 'none';
+            document.getElementById('password').value = '';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+        
+        function loadStats() {
+            const stats = JSON.parse(localStorage.getItem('stech_stats')) || {
+                projects: 500,
+                years: 15,
+                satisfaction: 98,
+                support: 24
+            };
+            
+            document.getElementById('projectsValue').textContent = stats.projects;
+            document.getElementById('yearsValue').textContent = stats.years;
+            document.getElementById('satisfactionValue').textContent = stats.satisfaction + '%';
+            document.getElementById('supportValue').textContent = stats.support;
+            
+            document.getElementById('projectsInput').value = stats.projects;
+            document.getElementById('yearsInput').value = stats.years;
+            document.getElementById('satisfactionInput').value = stats.satisfaction;
+            document.getElementById('supportInput').value = stats.support;
+        }
+        
+        function saveStat(stat) {
+            const stats = JSON.parse(localStorage.getItem('stech_stats')) || {
+                projects: 500,
+                years: 15,
+                satisfaction: 98,
+                support: 24
+            };
+            
+            const inputValue = document.getElementById(stat + 'Input').value;
+            if (inputValue !== '') {
+                stats[stat] = parseInt(inputValue);
+                localStorage.setItem('stech_stats', JSON.stringify(stats));
+                
+                // Update display
+                if (stat === 'satisfaction') {
+                    document.getElementById(stat + 'Value').textContent = stats[stat] + '%';
+                } else {
+                    document.getElementById(stat + 'Value').textContent = stats[stat];
+                }
+                
+                // Show feedback
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Saved!';
+                btn.style.background = '#00cc00';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                }, 2000);
+            }
+        }
+        
+        // Tab Switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.admin-tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.admin-tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab and activate button
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Settings: Change Password
+        function changeAdminPassword() {
+            const current = document.getElementById('currentPassword').value;
+            const next = document.getElementById('newPassword').value;
+            const confirm = document.getElementById('confirmPassword').value;
+            const storedHash = localStorage.getItem('stech_admin_password') || hashPassword('admin');
+
+            if (hashPassword(current) !== storedHash) { alert('Current password is incorrect'); return; }
+            if (!next || next.length < 8) { alert('New password must be at least 8 characters'); return; }
+            if (next !== confirm) { alert('New password and confirmation do not match'); return; }
+            if (!/[A-Z]/.test(next) || !/[a-z]/.test(next) || !/[0-9]/.test(next)) {
+                alert('Password must contain uppercase, lowercase, and numbers');
+                return;
+            }
+
+            localStorage.setItem('stech_admin_password', hashPassword(next));
+            alert('Password changed successfully. Remember your new password!');
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+        }
+
+        // Gallery Admin
+        let adminGallery = [];
+
+        function initGalleryUpload() {
+            const dropzone = document.getElementById('galleryDropzone');
+            const fileInput = document.getElementById('galleryFileInput');
+            if (!dropzone || !fileInput) return;
+
+            const prevent = (e) => { e.preventDefault(); e.stopPropagation(); };
+            ['dragenter','dragover','dragleave','drop'].forEach(evt => {
+                dropzone.addEventListener(evt, prevent);
+            });
+            dropzone.addEventListener('dragover', () => { dropzone.classList.add('dragover'); });
+            dropzone.addEventListener('dragleave', () => { dropzone.classList.remove('dragover'); });
+            dropzone.addEventListener('drop', (e) => {
+                dropzone.classList.remove('dragover');
+                const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+                handleGalleryFiles(files);
+            });
+            dropzone.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', (e) => {
+                const files = Array.from(e.target.files).filter(f => f.type.startsWith('image/'));
+                handleGalleryFiles(files);
+                fileInput.value = '';
+            });
+        }
+
+        function handleGalleryFiles(files) {
+            if (!files || !files.length) return;
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    adminGallery.push({ src: ev.target.result, title: file.name });
+                    renderAdminGalleryThumbs();
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function renderAdminGalleryThumbs() {
+            const container = document.getElementById('adminGalleryThumbs');
+            if (!container) return;
+            if (adminGallery.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-secondary);">No images yet. Upload to add.</p>';
+                return;
+            }
+            container.innerHTML = adminGallery.map((item, idx) => `
+                <div class="thumb" draggable="true" data-index="${idx}" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)">
+                    <div class="thumb-order">${idx + 1}</div>
+                    <img src="${item.src}" alt="${item.title || 'Image'}">
+                    <button class="thumb-remove" onclick="event.stopPropagation(); removeGalleryImage(${idx});" title="Remove image"><i class="fi fi-rr-trash"></i></button>
+                </div>
+            `).join('');
+        }
+
+        function removeGalleryImage(index) {
+            adminGallery.splice(index, 1);
+            renderAdminGalleryThumbs();
+        }
+
+        // Drag and drop for reordering
+        let draggedIndex = null;
+
+        function handleDragStart(e) {
+            draggedIndex = parseInt(e.currentTarget.getAttribute('data-index'));
+            e.currentTarget.style.opacity = '0.4';
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            e.currentTarget.style.borderColor = 'var(--accent-color)';
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+            e.currentTarget.style.borderColor = '';
+            
+            const dropIndex = parseInt(e.currentTarget.getAttribute('data-index'));
+            if (draggedIndex !== null && draggedIndex !== dropIndex) {
+                const draggedItem = adminGallery[draggedIndex];
+                adminGallery.splice(draggedIndex, 1);
+                adminGallery.splice(dropIndex, 0, draggedItem);
+                renderAdminGalleryThumbs();
+            }
+            return false;
+        }
+
+        function handleDragEnd(e) {
+            e.currentTarget.style.opacity = '1';
+            e.currentTarget.style.borderColor = '';
+            draggedIndex = null;
+        }
+
+        function saveAdminGallery() {
+            localStorage.setItem('stech_gallery', JSON.stringify(adminGallery));
+            alert('Gallery saved. It will appear on the site.');
+        }
+
+        function loadAdminGallery() {
+            const stored = JSON.parse(localStorage.getItem('stech_gallery')) || [];
+            adminGallery = stored;
+            renderAdminGalleryThumbs();
+        }
+        
+        // Review Management
+        let currentRating = 5;
+        
+        function setRating(rating) {
+            currentRating = rating;
+            const stars = document.querySelectorAll('.star');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+        
+        function addReview() {
+            const name = sanitizeHTML(document.getElementById('reviewName').value.trim());
+            const company = sanitizeHTML(document.getElementById('reviewCompany').value.trim());
+            const text = sanitizeHTML(document.getElementById('reviewText').value.trim());
+            const textPL = sanitizeHTML(document.getElementById('reviewTextPL').value.trim());
+            
+            if (!name || !text || !textPL) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            if (name.length > 100 || text.length > 500 || textPL.length > 500) {
+                alert('Input too long. Name: max 100 chars, Text: max 500 chars');
+                return;
+            }
+            
+            const reviews = JSON.parse(localStorage.getItem('stech_reviews')) || [];
+            const newReview = {
+                id: Date.now(),
+                name,
+                company,
+                text,
+                textPL,
+                rating: currentRating,
+                date: new Date().toLocaleDateString()
+            };
+            
+            reviews.push(newReview);
+            localStorage.setItem('stech_reviews', JSON.stringify(reviews));
+            
+            // Clear form
+            document.getElementById('reviewName').value = '';
+            document.getElementById('reviewCompany').value = '';
+            document.getElementById('reviewText').value = '';
+            document.getElementById('reviewTextPL').value = '';
+            currentRating = 5;
+            setRating(5);
+            
+            loadReviews();
+        }
+        
+        function deleteReview(id) {
+            if (confirm('Are you sure you want to delete this review?')) {
+                let reviews = JSON.parse(localStorage.getItem('stech_reviews')) || [];
+                reviews = reviews.filter(r => r.id !== id);
+                localStorage.setItem('stech_reviews', JSON.stringify(reviews));
+                loadReviews();
+            }
+        }
+        
+        function loadReviews() {
+            const reviews = JSON.parse(localStorage.getItem('stech_reviews')) || [];
+            const reviewsList = document.getElementById('reviewsList');
+            
+            if (reviews.length === 0) {
+                reviewsList.innerHTML = '<p style="color: var(--text-secondary);">No reviews yet. Add your first review above!</p>';
+                return;
+            }
+            
+            reviewsList.innerHTML = reviews.map(review => `
+                <div class="review-item">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="flex: 1;">
+                            <h4 style="color: var(--accent-color); margin: 0 0 0.5rem 0;">${review.name}</h4>
+                            ${review.company ? `<p style="color: var(--text-secondary); margin: 0 0 0.5rem 0; font-size: 0.9rem;">${review.company}</p>` : ''}
+                            <p style="color: var(--text-primary); margin: 0.5rem 0;">EN: ${review.text}</p>
+                            <p style="color: var(--text-primary); margin: 0.5rem 0;">PL: ${review.textPL}</p>
+                            <div style="margin-top: 0.5rem; color: var(--accent-color);">
+                                ${Array(review.rating).fill('★').join('')}
+                            </div>
+                            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.5rem;">${review.date}</p>
+                        </div>
+                        <button class="delete-btn" onclick="deleteReview(${review.id})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Contact Info Management
+        function saveContact() {
+            const email = sanitizeHTML(document.getElementById('contactEmail').value.trim());
+            const phone = sanitizeHTML(document.getElementById('contactPhone').value.trim());
+            const address = sanitizeHTML(document.getElementById('contactAddress').value.trim());
+            
+            if (!email || !phone || !address) {
+                alert('Please fill in all fields');
+                return;
+            }
+            if (!validateEmail(email)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            if (!validatePhone(phone)) {
+                alert('Please enter a valid phone number');
+                return;
+            }
+            if (address.length > 200) {
+                alert('Address too long (max 200 characters)');
+                return;
+            }
+            
+            const contactInfo = { email, phone, address };
+            localStorage.setItem('stech_contact', JSON.stringify(contactInfo));
+            
+            // Show feedback
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Saved!';
+            btn.style.background = '#00cc00';
+            
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+            }, 2000);
+            
+            loadContact();
+        }
+        
+        function loadContact() {
+            const contactInfo = JSON.parse(localStorage.getItem('stech_contact')) || {
+                email: 'info@s-tech.com',
+                phone: '+48 (123) 456-7890',
+                address: 'S-TECH Industry'
+            };
+            
+            document.getElementById('contactEmail').value = contactInfo.email;
+            document.getElementById('contactPhone').value = contactInfo.phone;
+            document.getElementById('contactAddress').value = contactInfo.address;
+            
+            document.getElementById('displayEmail').textContent = 'Email: ' + contactInfo.email;
+            document.getElementById('displayPhone').textContent = 'Phone: ' + contactInfo.phone;
+            document.getElementById('displayAddress').textContent = 'Address: ' + contactInfo.address;
+        }
+        
+        // Check authentication on page load
+        checkAuth();
+        
+        // Initialize with default reviews if none exist
+        const existingReviews = localStorage.getItem('stech_reviews');
+        if (!existingReviews) {
+            const defaultReviews = [
+                {
+                    id: 1,
+                    name: 'John Mitchell',
+                    company: 'TechManufacturing Inc.',
+                    text: 'Exceptional CAD design services! The team delivered our complex machinery designs on time with incredible precision. Highly recommended!',
+                    textPL: 'Wyjątkowe usługi projektowania CAD! Zespół dostarczył nasze złożone projekty maszyn na czas z niesamowitą dokładnością. Gorąco polecam!',
+                    rating: 5,
+                    date: '2025-12-15'
+                },
+                {
+                    id: 2,
+                    name: 'Sarah Anderson',
+                    company: 'Precision Engineering Ltd.',
+                    text: 'The 3D scanning service transformed our reverse engineering process. Their accuracy is unmatched in the industry.',
+                    textPL: 'Usługa skanowania 3D zmieniła nasz proces inżynierii wstecznej. Ich dokładność nie ma sobie równych w branży.',
+                    rating: 5,
+                    date: '2025-11-22'
+                },
+                {
+                    id: 3,
+                    name: 'Mark Henderson',
+                    company: 'Advanced Manufacturing Co.',
+                    text: 'Outstanding support and quality. S-TECH delivered our 3D printing project beyond expectations. Professional team!',
+                    textPL: 'Doskonałe wsparcie i jakość. S-TECH dostarczył nasz projekt druku 3D ponad oczekiwania. Profesjonalny zespół!',
+                    rating: 5,
+                    date: '2025-10-18'
+                },
+                {
+                    id: 4,
+                    name: 'Emma Taylor',
+                    company: 'Global Design Solutions',
+                    text: 'Worked with them on multiple CAD projects. Consistent quality, fast turnaround, and great communication throughout.',
+                    textPL: 'Pracowałem z nimi nad wieloma projektami CAD. Konsekwentna jakość, szybki czas realizacji i świetna komunikacja.',
+                    rating: 5,
+                    date: '2025-09-30'
+                },
+                {
+                    id: 5,
+                    name: 'Robert Chen',
+                    company: 'Innovation Labs Asia',
+                    text: 'The 3D scanning accuracy is incredible. We\'ve used their services for complex heritage preservation projects.',
+                    textPL: 'Dokładność skanowania 3D jest niesamowita. Korzystaliśmy z ich usług do złożonych projektów ochrony dziedzictwa.',
+                    rating: 5,
+                    date: '2025-09-12'
+                },
+                {
+                    id: 6,
+                    name: 'Lisa Martinez',
+                    company: 'Design & Innovation Hub',
+                    text: 'Exceptional team that understands our needs. The reverse engineering capabilities are top-notch!',
+                    textPL: 'Wyjątkowy zespół, który rozumie nasze potrzeby. Możliwości inżynierii wstecznej są pierwszoklasowe!',
+                    rating: 5,
+                    date: '2025-08-25'
+                },
+                {
+                    id: 7,
+                    name: 'Thomas Weber',
+                    company: 'Munich Engineering Systems',
+                    text: 'S-TECH handled our complex automotive CAD project flawlessly. Their attention to detail is remarkable and delivery was ahead of schedule.',
+                    textPL: 'S-TECH bezfałdowo obsługiwał nasz złożony projekt CAD dla motoryzacji. Ich dbałość o szczegóły jest godna uwagi, a dostawa była wcześniej niż planowano.',
+                    rating: 5,
+                    date: '2025-08-10'
+                },
+                {
+                    id: 8,
+                    name: 'Jessica Wong',
+                    company: 'AsiaProto Manufacturing',
+                    text: 'Best investment we made this year! Their 3D printing services helped us prototype our new product line in record time.',
+                    textPL: 'Najlepsza inwestycja, jaką dokonaliśmy w tym roku! Ich usługi druku 3D pomogły nam prototypować nową linię produktów w rekordowym czasie.',
+                    rating: 5,
+                    date: '2025-07-28'
+                },
+                {
+                    id: 9,
+                    name: 'David Novak',
+                    company: 'Eastern European Tech Solutions',
+                    text: 'Reliable, professional, and cost-effective. S-TECH consistently delivers exceptional quality for our reverse engineering needs.',
+                    textPL: 'Niezawodny, profesjonalny i ekonomiczny. S-TECH konsekwentnie dostarcza wyjątkową jakość dla naszych potrzeb inżynierii wstecznej.',
+                    rating: 5,
+                    date: '2025-07-15'
+                },
+                {
+                    id: 10,
+                    name: 'Victoria Romano',
+                    company: 'Italian Design Collective',
+                    text: 'Their CAD team brought our artistic vision to life with technical precision. A perfect blend of creativity and engineering excellence!',
+                    textPL: 'Ich zespół CAD wcielił naszą artystyczną wizję w życie z techniczną precyzją. Idealna mieszanina kreatywności i doskonałości inżynierskiej!',
+                    rating: 5,
+                    date: '2025-07-02'
+                },
+                {
+                    id: 11,
+                    name: 'Klaus Hoffmann',
+                    company: 'Hoffmann Precision AG',
+                    text: 'We\'ve been working with S-TECH for 3 years. Their 3D scanning technology helps us maintain quality control across all our products.',
+                    textPL: 'Współpracujemy z S-TECH od 3 lat. Ich technologia skanowania 3D pomaga nam utrzymać kontrolę jakości na wszystkich naszych produktach.',
+                    rating: 5,
+                    date: '2025-06-20'
+                },
+                {
+                    id: 12,
+                    name: 'Sophie Dupont',
+                    company: 'Dupont Aerospace Technologies',
+                    text: 'Complex aerospace components require precision we thought was impossible. S-TECH proved us wrong with their incredible accuracy!',
+                    textPL: 'Złożone komponenty lotnicze wymagają precyzji, którą uważaliśmy za niemożliwą. S-TECH udowodnił nam, że się mylimy dzięki niesamowitej dokładności!',
+                    rating: 5,
+                    date: '2025-06-08'
+                },
+                {
+                    id: 13,
+                    name: 'Michael O\'Brien',
+                    company: 'O\'Brien Industrial Solutions',
+                    text: 'From initial consultation to final delivery, S-TECH exceeded expectations. Their 24/7 support team is phenomenal!',
+                    textPL: 'Od początkowej konsultacji do ostatecznej dostawy, S-TECH przekroczył oczekiwania. Ich zespół wsparcia 24/7 jest fenomenalny!',
+                    rating: 5,
+                    date: '2025-05-25'
+                },
+                {
+                    id: 14,
+                    name: 'Yuki Tanaka',
+                    company: 'Tanaka Manufacturing Japan',
+                    text: 'Partnering with S-TECH was the best decision for our CAD outsourcing needs. Fast, reliable, and incredibly professional.',
+                    textPL: 'Partnerstwo z S-TECH było najlepszą decyzją dla naszych potrzeb outsourcingu CAD. Szybkie, niezawodne i niesamowicie profesjonalne.',
+                    rating: 5,
+                    date: '2025-05-12'
+                },
+                {
+                    id: 15,
+                    name: 'Angela Foster',
+                    company: 'Foster Automotive Group',
+                    text: 'The reverse engineering project they completed for us saved us months of development time. Truly exceptional service!',
+                    textPL: 'Projekt inżynierii wstecznej, który dla nas ukończyli, zaoszczędził nam miesiące czasu rozwoju. Naprawdę wyjątkowa usługa!',
+                    rating: 5,
+                    date: '2025-04-30'
+                }
+            ];
+            localStorage.setItem('stech_reviews', JSON.stringify(defaultReviews));
+        }
+        
+        loadReviews();
+        loadContact();
+        setRating(5);
+        loadAdminGallery();
+        initGalleryUpload();
+        
+        // Theme toggle
+        const themeBtn = document.getElementById('admin-theme-btn');
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode-default');
+                const icon = themeBtn.querySelector('i');
+                if (document.body.classList.contains('dark-mode-default')) {
+                    icon.className = 'fi fi-rr-moon';
+                } else {
+                    icon.className = 'fi fi-rr-sun';
+                }
+            });
+        }
+        
+        // Language toggle (basic placeholder - can be expanded)
+        const langBtn = document.getElementById('admin-lang-btn');
+        if (langBtn) {
+            langBtn.addEventListener('click', () => {
+                const currentLang = document.documentElement.lang || 'en';
+                const newLang = currentLang === 'en' ? 'pl' : 'en';
+                document.documentElement.lang = newLang;
+                
+                // Update all elements with data-en and data-pl attributes
+                document.querySelectorAll('[data-en][data-pl]').forEach(el => {
+                    const text = newLang === 'pl' ? el.getAttribute('data-pl') : el.getAttribute('data-en');
+                    if (text) el.textContent = text;
+                });
+            });
+        }
+    </script>
+</body>
+</html>
