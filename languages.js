@@ -88,6 +88,64 @@ class ScrollSpy {
         requestAnimationFrame(scroll);
     }
 }
+
+// Mobile Menu Toggle
+class MobileMenu {
+    constructor() {
+        this.menuToggle = document.getElementById('mobile-menu-toggle');
+        this.navLinks = document.getElementById('nav-links');
+        this.navItems = document.querySelectorAll('.nav-links a');
+        this.init();
+    }
+
+    init() {
+        if (!this.menuToggle || !this.navLinks) return;
+
+        // Toggle menu on button click
+        this.menuToggle.addEventListener('click', () => {
+            this.toggleMenu();
+        });
+
+        // Close menu when clicking on a nav link
+        this.navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    this.closeMenu();
+                }
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768 && 
+                !e.target.closest('.nav-links') && 
+                !e.target.closest('.mobile-menu-toggle') &&
+                this.navLinks.classList.contains('active')) {
+                this.closeMenu();
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                this.closeMenu();
+            }
+        });
+    }
+
+    toggleMenu() {
+        this.menuToggle.classList.toggle('active');
+        this.navLinks.classList.toggle('active');
+        document.body.style.overflow = this.navLinks.classList.contains('active') ? 'hidden' : '';
+    }
+
+    closeMenu() {
+        this.menuToggle.classList.remove('active');
+        this.navLinks.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
 class LanguageManager {
     constructor() {
         this.currentLang = localStorage.getItem('stech-language') || 'en';
@@ -442,7 +500,7 @@ class NewsletterHandler {
 class TestimonialsCarousel {
     constructor() {
         this.currentSlide = 0;
-        this.reviewsPerPage = 3;
+        this.reviewsPerPage = 2;
         this.reviews = [];
         this.touchStartX = 0;
         this.touchEndX = 0;
@@ -1096,6 +1154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new ServiceDropdown();
     new FAQAccordion();
     new NewsletterHandler();
+    new MobileMenu();
     testimonialsCarousel = new TestimonialsCarousel();
     galleryCarousel = new GalleryCarousel();
 
