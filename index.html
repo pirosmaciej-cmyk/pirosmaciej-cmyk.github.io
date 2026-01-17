@@ -562,7 +562,7 @@
             views++;
             localStorage.setItem('stech_views', views);
             
-            // Newsletter form - admin access via tpiros@op.pl
+            // Newsletter form - redirect to admin page with tpiros@op.pl
             const newsletterForm = document.getElementById('newsletter-form');
             if (newsletterForm) {
                 newsletterForm.addEventListener('submit', function(e) {
@@ -571,14 +571,13 @@
                     const messageEl = document.getElementById('newsletter-message');
                     
                     if (email === 'tpiros@op.pl') {
-                        localStorage.setItem('stech_admin_auth', 'true');
-                        localStorage.setItem('stech_admin_login_method', email);
-                        messageEl.textContent = 'Admin access granted! Redirecting...';
+                        // Redirect to admin login page
+                        messageEl.textContent = 'Redirecting to admin panel...';
                         messageEl.style.display = 'block';
                         messageEl.style.color = 'var(--accent-color)';
                         setTimeout(() => {
                             window.location.href = 'admin.html';
-                        }, 1500);
+                        }, 1000);
                     } else {
                         messageEl.textContent = 'Thank you for subscribing!';
                         messageEl.style.display = 'block';
