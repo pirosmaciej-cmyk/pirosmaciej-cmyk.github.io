@@ -164,7 +164,24 @@
             <div class="gallery-carousel">
                 <button class="carousel-arrow prev" onclick="slideGallery(-1)"><i class="fi fi-rr-angle-left"></i></button>
                 <div id="galleryContainer" class="gallery-grid">
-                    <!-- Images will be populated here -->
+                    <div class="gallery-item">
+                        <div class="gallery-item-placeholder">
+                            <i class="fi fi-rr-image" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                            <p><span data-en="No image yet" data-pl="Brak zdjęcia">No image yet</span></p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-item-placeholder">
+                            <i class="fi fi-rr-image" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                            <p><span data-en="No image yet" data-pl="Brak zdjęcia">No image yet</span></p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-item-placeholder">
+                            <i class="fi fi-rr-image" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                            <p><span data-en="No image yet" data-pl="Brak zdjęcia">No image yet</span></p>
+                        </div>
+                    </div>
                 </div>
                 <button class="carousel-arrow next" onclick="slideGallery(1)"><i class="fi fi-rr-angle-right"></i></button>
             </div>
@@ -497,6 +514,29 @@
 
     <script src="languages.js"></script>
     <script>
+        // Add sample gallery images if none exist or if gallery is empty (for demo purposes)
+        const existingGallery = localStorage.getItem('stech_gallery');
+        const parsedGallery = existingGallery ? JSON.parse(existingGallery) : [];
+        
+        if (!existingGallery || parsedGallery.length === 0) {
+            const sampleImages = [
+                'https://via.placeholder.com/800x600/1a1a2e/00ff00?text=Project+1',
+                'https://via.placeholder.com/800x600/2d3f5f/00ff00?text=Project+2',
+                'https://via.placeholder.com/800x600/9d4edd/00ff00?text=Project+3',
+                'https://via.placeholder.com/800x600/1a1a2e/00ff00?text=Project+4',
+                'https://via.placeholder.com/800x600/2d3f5f/00ff00?text=Project+5',
+                'https://via.placeholder.com/800x600/9d4edd/00ff00?text=Project+6',
+                'https://via.placeholder.com/800x600/1a1a2e/00ff00?text=Project+7',
+                'https://via.placeholder.com/800x600/2d3f5f/00ff00?text=Project+8',
+                'https://via.placeholder.com/800x600/9d4edd/00ff00?text=Project+9'
+            ];
+            localStorage.setItem('stech_gallery', JSON.stringify(sampleImages));
+            // Reload page to apply changes
+            if (parsedGallery.length === 0 && existingGallery) {
+                location.reload();
+            }
+        }
+        
         // Track page views
         document.addEventListener('DOMContentLoaded', () => {
             let views = parseInt(localStorage.getItem('stech_views') || '0');

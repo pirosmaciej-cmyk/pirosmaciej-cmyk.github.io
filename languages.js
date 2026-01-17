@@ -832,27 +832,34 @@ class GalleryCarousel {
             // Gallery has been set by admin (even if empty)
             const stored = JSON.parse(storedRaw);
             if (stored.length > 0) {
-                this.items = stored.map((g, i) => ({ id: i + 1, src: g.src || null, title: g.title || `Image ${i + 1}` }));
+                // Handle both string arrays and object arrays
+                this.items = stored.map((g, i) => ({
+                    id: i + 1,
+                    src: typeof g === 'string' ? g : (g.src || null),
+                    title: typeof g === 'object' && g.title ? g.title : `Image ${i + 1}`
+                }));
             } else {
-                // Admin saved an empty gallery
-                this.items = [];
+                // Admin saved an empty gallery - keep HTML placeholders
+                this.items = null;
             }
         } else {
-            // No gallery set yet - show placeholders
-            this.items = [];
-            for (let i = 1; i <= 12; i++) {
-                this.items.push({
-                    id: i,
-                    src: null,
-                    title: `Image ${i}`
-                });
-            }
+            // No gallery set yet - keep HTML placeholders
+            this.items = null;
         }
     }
 
     renderItems() {
         const container = document.getElementById('galleryContainer');
         if (!container) return;
+        
+        // If items is null, keep the HTML placeholders
+        if (this.items === null) return;
+        
+        // If items is empty array, clear container
+        if (this.items.length === 0) {
+            container.innerHTML = '';
+            return;
+        }
 
         const startIdx = this.currentSlide * this.itemsPerPage;
         const endIdx = startIdx + this.itemsPerPage;
@@ -868,8 +875,8 @@ class GalleryCarousel {
                 <div class="gallery-item" data-index="${startIdx + idx}" onclick="openGalleryLightbox(${startIdx + idx})" style="animation: slideInGallery 0.6s ease-out backwards; animation-delay: ${idx * 0.1}s;">
                     ${item.src ? `<img src="${item.src}" alt="${item.title}">` : `
                         <div class="gallery-item-placeholder">
-                            <i class="fi fi-rr-image"></i>
-                            <p>${item.title}</p>
+                            <i class="fi fi-rr-image" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                            <p><span data-en="No image yet" data-pl="Brak zdjęcia">${item.title}</span></p>
                         </div>
                     `}
                 </div>
@@ -885,7 +892,7 @@ class GalleryCarousel {
 
     setupIndicators() {
         const indicatorsContainer = document.getElementById('galleryIndicators');
-        if (!indicatorsContainer) return;
+        if (!indicatorsContainer || this.items === null) return;
 
         const numSlides = Math.ceil(this.items.length / this.itemsPerPage);
         indicatorsContainer.innerHTML = Array(numSlides).fill(0).map((_, idx) => `
@@ -966,6 +973,7 @@ class GalleryCarousel {
     }
 
     goToSlide(slideNum) {
+        if (this.items === null || this.items.length === 0) return;
         const maxSlides = Math.ceil(this.items.length / this.itemsPerPage);
         if (slideNum >= 0 && slideNum < maxSlides) {
             this.currentSlide = slideNum;
@@ -979,7 +987,7 @@ let galleryCarousel;
 
 // Slide gallery function
 function slideGallery(direction) {
-    if (galleryCarousel) {
+    if (galleryCarousel && galleryCarousel.items !== null && galleryCarousel.items.length > 0) {
         const maxSlides = Math.ceil(galleryCarousel.items.length / galleryCarousel.itemsPerPage);
         let newSlide = galleryCarousel.currentSlide + direction;
         
@@ -1000,6 +1008,7 @@ let lightboxTouchStartX = 0;
 let lightboxTouchEndX = 0;
 
 function openGalleryLightbox(index) {
+    if (!galleryCarousel || galleryCarousel.items === null || galleryCarousel.items.length === 0) return;
     galleryLightboxIndex = index;
     const overlay = document.getElementById('galleryLightbox');
     if (!overlay) return;
@@ -1021,7 +1030,7 @@ function updateLightboxImage() {
     const imgEl = document.getElementById('lightboxImage');
     const placeholderEl = document.getElementById('lightboxPlaceholder');
     const wrapperEl = document.querySelector('.lightbox-image-wrapper');
-    if (!imgEl || !placeholderEl || !galleryCarousel) return;
+    if (!imgEl || !placeholderEl || !galleryCarousel || galleryCarousel.items === null) return;
 
     // Animate out
     if (wrapperEl) {
@@ -1053,14 +1062,14 @@ function updateLightboxImage() {
 }
 
 function lightboxNext() {
-    if (galleryCarousel && galleryCarousel.items.length) {
+    if (galleryCarousel && galleryCarousel.items !== null && galleryCarousel.items.length > 0) {
         galleryLightboxIndex = (galleryLightboxIndex + 1) % galleryCarousel.items.length;
         updateLightboxImage();
     }
 }
 
 function lightboxPrev() {
-    if (galleryCarousel && galleryCarousel.items.length) {
+    if (galleryCarousel && galleryCarousel.items !== null && galleryCarousel.items.length > 0) {
         galleryLightboxIndex = (galleryLightboxIndex - 1 + galleryCarousel.items.length) % galleryCarousel.items.length;
         updateLightboxImage();
     }
