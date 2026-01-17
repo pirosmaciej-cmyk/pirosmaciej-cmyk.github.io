@@ -811,7 +811,7 @@ function slideTestimonials(direction) {
 class GalleryCarousel {
     constructor() {
         this.currentSlide = 0;
-        this.itemsPerPage = 3;
+        this.itemsPerPage = window.innerWidth <= 768 ? 2 : 3;
         this.items = [];
         this.touchStartX = 0;
         this.touchEndX = 0;

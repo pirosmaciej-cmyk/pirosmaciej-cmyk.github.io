@@ -191,10 +191,10 @@
 
     <!-- Gallery Lightbox Modal -->
     <div id="galleryLightbox" class="lightbox hidden" aria-hidden="true">
+        <button class="lightbox-close" aria-label="Close" onclick="closeGalleryLightbox()">
+            <i class="fi fi-rr-cross-small"></i>
+        </button>
         <div class="lightbox-content" role="dialog" aria-modal="true" aria-label="Gallery viewer">
-            <button class="lightbox-close" aria-label="Close" onclick="closeGalleryLightbox()">
-                <i class="fi fi-rr-cross-small"></i>
-            </button>
             <button class="lightbox-arrow prev" onclick="lightboxPrev()" aria-label="Previous image">
                 <i class="fi fi-rr-angle-left"></i>
             </button>
@@ -455,9 +455,9 @@
         <div class="container">
             <h2><i class="fi fi-rr-envelope"></i> <span data-en="Contact Us" data-pl="Skontaktuj się z nami">Contact Us</span></h2>
             <form class="contact-form">
-                <input type="text" placeholder="Your Name" data-placeholder-en="Your Name" data-placeholder-pl="Twoje imię" required>
-                <input type="email" placeholder="Your Email" data-placeholder-en="Your Email" data-placeholder-pl="Twój e-mail" required>
-                <textarea placeholder="Your Message" data-placeholder-en="Your Message" data-placeholder-pl="Twoja wiadomość" rows="5" required></textarea>
+                <input type="text" id="contact-name" name="name" autocomplete="name" placeholder="Your Name" data-placeholder-en="Your Name" data-placeholder-pl="Twoje imię" required>
+                <input type="email" id="contact-email" name="email" autocomplete="email" placeholder="Your Email" data-placeholder-en="Your Email" data-placeholder-pl="Twój e-mail" required>
+                <textarea id="contact-message" name="message" autocomplete="off" placeholder="Your Message" data-placeholder-en="Your Message" data-placeholder-pl="Twoja wiadomość" rows="5" required></textarea>
                 <button type="submit" class="submit-btn" data-en="Send Message" data-pl="Wyślij wiadomość">Send Message</button>
             </form>
         </div>
@@ -514,25 +514,44 @@
 
     <script src="languages.js"></script>
     <script>
-        // Add sample gallery images if none exist or if gallery is empty (for demo purposes)
+        // Force clear old gallery with via.placeholder.com and add new sample images
         const existingGallery = localStorage.getItem('stech_gallery');
-        const parsedGallery = existingGallery ? JSON.parse(existingGallery) : [];
+        let needsReload = false;
         
-        if (!existingGallery || parsedGallery.length === 0) {
+        // Check if gallery contains old placeholder.com URLs
+        if (existingGallery) {
+            try {
+                const parsed = JSON.parse(existingGallery);
+                if (parsed.some(img => typeof img === 'string' && img.includes('placeholder.com'))) {
+                    localStorage.removeItem('stech_gallery');
+                    needsReload = true;
+                }
+            } catch(e) {}
+        }
+        
+        const parsedGallery = existingGallery && !needsReload ? JSON.parse(existingGallery) : [];
+        
+        if (!existingGallery || parsedGallery.length === 0 || needsReload) {
+            // Create inline SVG images as data URIs
+            const createSVG = (color, num) => {
+                const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><rect fill="${color}" width="800" height="600"/><text x="50%" y="50%" font-family="Arial" font-size="48" fill="#00ff00" text-anchor="middle" dy=".3em">Project ${num}</text></svg>`;
+                return 'data:image/svg+xml;base64,' + btoa(svg);
+            };
+            
             const sampleImages = [
-                'https://via.placeholder.com/800x600/1a1a2e/00ff00?text=Project+1',
-                'https://via.placeholder.com/800x600/2d3f5f/00ff00?text=Project+2',
-                'https://via.placeholder.com/800x600/9d4edd/00ff00?text=Project+3',
-                'https://via.placeholder.com/800x600/1a1a2e/00ff00?text=Project+4',
-                'https://via.placeholder.com/800x600/2d3f5f/00ff00?text=Project+5',
-                'https://via.placeholder.com/800x600/9d4edd/00ff00?text=Project+6',
-                'https://via.placeholder.com/800x600/1a1a2e/00ff00?text=Project+7',
-                'https://via.placeholder.com/800x600/2d3f5f/00ff00?text=Project+8',
-                'https://via.placeholder.com/800x600/9d4edd/00ff00?text=Project+9'
+                createSVG('#1a1a2e', 1),
+                createSVG('#2d3f5f', 2),
+                createSVG('#9d4edd', 3),
+                createSVG('#1a1a2e', 4),
+                createSVG('#2d3f5f', 5),
+                createSVG('#9d4edd', 6),
+                createSVG('#1a1a2e', 7),
+                createSVG('#2d3f5f', 8),
+                createSVG('#9d4edd', 9)
             ];
             localStorage.setItem('stech_gallery', JSON.stringify(sampleImages));
-            // Reload page to apply changes
-            if (parsedGallery.length === 0 && existingGallery) {
+            
+            if (needsReload) {
                 location.reload();
             }
         }
