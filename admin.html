@@ -537,10 +537,27 @@
                 <div class="admin-tab-content active" id="info-tab">
                     <div style="padding-top: 2rem; border-top: 2px solid var(--border-color);">
                         <h3 style="color: var(--text-primary); margin-bottom: 1rem;" data-en="Admin Information" data-pl="Informacje Administracyjne">Admin Information</h3>
+                        
+                        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid var(--accent-color);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <div>
+                                    <h4 style="color: var(--accent-color); margin-bottom: 0.5rem;">Site Views</h4>
+                                    <p style="font-size: 2rem; color: var(--text-primary); font-weight: bold;" id="viewCounter">0</p>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Total page views since tracking started</p>
+                                </div>
+                                <button class="add-btn" onclick="resetViewCounter()" style="height: fit-content; padding: 8px 16px;" title="Reset view counter">Reset Views</button>
+                            </div>
+                        </div>
+                        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid var(--accent-color);">
+                            <h4 style="color: var(--accent-color); margin-bottom: 0.5rem;">Admin Login</h4>
+                            <p style="font-size: 1rem; color: var(--text-primary); font-weight: bold;" id="loginDisplay">tpiros@op.pl</p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Email used to access admin panel</p>
+                        </div>
+                        
                         <p style="color: var(--text-secondary); line-height: 1.8;">
-                            <strong>Secret Access:</strong> Type <strong>tpiros@op.pl</strong> in the newsletter subscription field on the main site and click Subscribe to access this admin panel.<br>
-                            <strong>Admin Password:</strong> <code style="background: var(--bg-secondary); padding: 4px 8px; border-radius: 4px;">admin</code><br>
-                            <strong>Stats Storage:</strong> All changes are saved to your browser's local storage and persist across sessions.
+                            <strong>Access Method:</strong> Type <strong>tpiros@op.pl</strong> in the newsletter subscription field on the main site and click Subscribe to access this admin panel.<br>
+                            <strong>Stats Storage:</strong> All changes are saved to your browser's local storage and persist across sessions.<br>
+                            <strong>Security:</strong> Session is stored in browser localStorage. Clear your browser data to log out.
                         </p>
                     </div>
                 </div>
@@ -625,6 +642,15 @@
                     <div style="padding-top: 2rem;">
                         <h3 style="color: var(--accent-color); margin-bottom: 2rem;" data-en="Account Settings" data-pl="Ustawienia Konta">Account Settings</h3>
                         <div class="review-form">
+                            <h4 style="color: var(--text-primary); margin-bottom: 1rem;" data-en="Change Login Email" data-pl="Zmień Email Logowania">Change Login Email</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">Current login email: <strong id="currentLoginEmail">tpiros@op.pl</strong></p>
+                            <input type="email" id="adminUsername" placeholder="Enter new login email (e.g., newemail@domain.com)" required>
+                            <input type="password" id="passwordForUsername" placeholder="Enter password to confirm" required>
+                            <button class="add-btn" onclick="changeAdminUsername()" data-en="Change Login Email" data-pl="Zmień Email">Change Login Email</button>
+                            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.5rem;">Use this email in the newsletter subscription field to access the admin panel.</p>
+                        </div>
+                        
+                        <div class="review-form" style="margin-top: 2rem; border-top: 2px solid var(--border-color); padding-top: 2rem;">
                             <h4 style="color: var(--text-primary); margin-bottom: 1rem;" data-en="Change Admin Password" data-pl="Zmień Hasło Administratora">Change Admin Password</h4>
                             <input type="password" id="currentPassword" placeholder="Current password" required>
                             <input type="password" id="newPassword" placeholder="New password (min 8 chars, mixed case + numbers)" required>
@@ -674,21 +700,39 @@
             }
         }
         
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const password = document.getElementById('password').value;
-            const errorMsg = document.getElementById('errorMessage');
-            const storedPasswordHash = localStorage.getItem('stech_admin_password') || hashPassword('admin');
-            
-            if (hashPassword(password) === storedPasswordHash) {
-                localStorage.setItem('stech_admin_auth', 'true');
-                showDashboard();
+        // Initialize default password hash on first load
+        if (!localStorage.getItem('stech_admin_password')) {
+            localStorage.setItem('stech_admin_password', hashPassword('admin'));
+        }
+        
+        // Setup login form handler - use try-catch to ensure element exists
+        try {
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const password = document.getElementById('password').value;
+                    const errorMsg = document.getElementById('errorMessage');
+                    const storedPasswordHash = localStorage.getItem('stech_admin_password');
+                    
+                    if (hashPassword(password) === storedPasswordHash) {
+                        localStorage.setItem('stech_admin_auth', 'true');
+                        showDashboard();
+                    } else {
+                        errorMsg.style.display = 'block';
+                        errorMsg.textContent = 'Invalid password. Default password is: admin';
+                        document.getElementById('password').value = '';
+                        setTimeout(() => {
+                            errorMsg.style.display = 'none';
+                        }, 4000);
+                    }
+                });
             } else {
-                errorMsg.style.display = 'block';
-                errorMsg.textContent = 'Invalid password. Try again.';
-                document.getElementById('password').value = '';
+                console.error('Login form not found');
             }
-        });
+        } catch(err) {
+            console.error('Error setting up login form:', err);
+        }
         
         function showDashboard() {
             document.getElementById('loginContainer').style.display = 'none';
@@ -1055,6 +1099,13 @@
         // Check authentication on page load
         checkAuth();
         
+        // Display view counter
+        const views = localStorage.getItem('stech_views') || '0';
+        const viewCounterEl = document.getElementById('viewCounter');
+        if (viewCounterEl) {
+            viewCounterEl.textContent = views;
+        }
+        
         // Initialize with default reviews if none exist
         const existingReviews = localStorage.getItem('stech_reviews');
         if (!existingReviews) {
@@ -1203,6 +1254,7 @@
         setRating(5);
         loadAdminGallery();
         initGalleryUpload();
+        displayLoginInfo();
         
         // Theme toggle
         const themeBtn = document.getElementById('admin-theme-btn');
@@ -1210,10 +1262,12 @@
             themeBtn.addEventListener('click', () => {
                 document.body.classList.toggle('dark-mode-default');
                 const icon = themeBtn.querySelector('i');
-                if (document.body.classList.contains('dark-mode-default')) {
-                    icon.className = 'fi fi-rr-moon';
-                } else {
-                    icon.className = 'fi fi-rr-sun';
+                if (icon) {
+                    if (document.body.classList.contains('dark-mode-default')) {
+                        icon.className = 'fi fi-rr-moon';
+                    } else {
+                        icon.className = 'fi fi-rr-sun';
+                    }
                 }
             });
         }
@@ -1232,6 +1286,79 @@
                     if (text) el.textContent = text;
                 });
             });
+        }
+        
+        // Reset view counter
+        function resetViewCounter() {
+            if (confirm('Are you sure you want to reset the view counter? This action cannot be undone.')) {
+                localStorage.setItem('stech_views', '0');
+                document.getElementById('viewCounter').textContent = '0';
+                alert('View counter has been reset to 0.');
+            }
+        }
+        
+        // Display login method
+        function displayLoginInfo() {
+            const loginDisplay = document.getElementById('loginDisplay');
+            const currentLoginEmail = document.getElementById('currentLoginEmail');
+            const loginMethod = localStorage.getItem('stech_admin_login_method') || 'tpiros@op.pl';
+            
+            if (loginDisplay) {
+                loginDisplay.textContent = loginMethod;
+            }
+            if (currentLoginEmail) {
+                currentLoginEmail.textContent = loginMethod;
+            }
+        }
+        
+        // Change admin login email function
+        function changeAdminUsername() {
+            const newEmail = document.getElementById('adminUsername').value.trim();
+            const password = document.getElementById('passwordForUsername').value;
+            const currentHash = localStorage.getItem('stech_admin_password') || hashPassword('admin');
+            
+            if (!newEmail) {
+                alert('Email cannot be empty');
+                return;
+            }
+            
+            // Validate email format
+            if (!validateEmail(newEmail)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            
+            if (!password) {
+                alert('Password is required to change login email');
+                return;
+            }
+            
+            if (hashPassword(password) !== currentHash) {
+                alert('Incorrect password');
+                return;
+            }
+            
+            // Update login method
+            localStorage.setItem('stech_admin_login_method', newEmail);
+            alert('Login email changed successfully to: ' + newEmail + '\n\nUse this email in the newsletter subscription field to access the admin panel.');
+            
+            // Update displays
+            displayLoginInfo();
+            
+            // Clear form
+            document.getElementById('adminUsername').value = '';
+            document.getElementById('passwordForUsername').value = '';
+        }
+        
+        // Run initialization after DOM is fully loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                checkAuth();
+                displayLoginInfo();
+            });
+        } else {
+            checkAuth();
+            displayLoginInfo();
         }
     </script>
 </body>

@@ -454,9 +454,10 @@
                 <h2 data-en="Stay Updated with Latest CAD & 3D Solutions" data-pl="Bądź na bieżąco z najnowszymi rozwiązaniami CAD i 3D">Stay Updated with Latest CAD & 3D Solutions</h2>
                 <p data-en="Subscribe to our newsletter for industry insights, project updates, and exclusive offers." data-pl="Subskrybuj nasz newsletter, aby otrzymywać wiedzę branżową, aktualizacje projektów i oferty specjalne.">Subscribe to our newsletter for industry insights, project updates, and exclusive offers.</p>
                 <form class="newsletter-form" id="newsletter-form">
-                    <input type="email" placeholder="your@email.com" required>
+                    <input type="email" id="newsletter-email" placeholder="your@email.com" required>
                     <button type="submit" class="newsletter-btn" data-en="Subscribe" data-pl="Subskrybuj">Subscribe</button>
                 </form>
+                <p id="newsletter-message" style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--accent-color); display: none;"></p>
             </div>
         </div>
     </section>
@@ -496,5 +497,42 @@
     </button>
 
     <script src="languages.js"></script>
+    <script>
+        // Track page views
+        document.addEventListener('DOMContentLoaded', () => {
+            let views = parseInt(localStorage.getItem('stech_views') || '0');
+            views++;
+            localStorage.setItem('stech_views', views);
+            
+            // Newsletter form - admin access via tpiros@op.pl
+            const newsletterForm = document.getElementById('newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = document.getElementById('newsletter-email').value.trim();
+                    const messageEl = document.getElementById('newsletter-message');
+                    
+                    if (email === 'tpiros@op.pl') {
+                        localStorage.setItem('stech_admin_auth', 'true');
+                        localStorage.setItem('stech_admin_login_method', email);
+                        messageEl.textContent = 'Admin access granted! Redirecting...';
+                        messageEl.style.display = 'block';
+                        messageEl.style.color = 'var(--accent-color)';
+                        setTimeout(() => {
+                            window.location.href = 'admin.html';
+                        }, 1500);
+                    } else {
+                        messageEl.textContent = 'Thank you for subscribing!';
+                        messageEl.style.display = 'block';
+                        messageEl.style.color = '#00ff00';
+                        document.getElementById('newsletter-email').value = '';
+                        setTimeout(() => {
+                            messageEl.style.display = 'none';
+                        }, 3000);
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
