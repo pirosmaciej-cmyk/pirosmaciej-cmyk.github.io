@@ -4,6 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S-TECH Industry - CAD & 3D Scanning Solutions</title>
+    <meta name="description" content="Professional CAD design, 3D scanning, reverse engineering, and 3D printing services. Industry-leading precision and expertise for your engineering projects.">
+    <meta name="keywords" content="CAD design, 3D scanning, reverse engineering, 3D printing, industrial design, technical drawings, product development, prototyping">
+    <meta name="author" content="S-TECH Industry">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://s-tech-industry.com/">
+    <meta property="og:title" content="S-TECH Industry - CAD & 3D Scanning Solutions">
+    <meta property="og:description" content="Professional CAD design, 3D scanning, reverse engineering, and 3D printing services. Industry-leading precision and expertise.">
+    <meta property="og:image" content="https://s-tech-industry.com/S-TECH.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://s-tech-industry.com/">
+    <meta property="twitter:title" content="S-TECH Industry - CAD & 3D Scanning Solutions">
+    <meta property="twitter:description" content="Professional CAD design, 3D scanning, reverse engineering, and 3D printing services.">
+    <meta property="twitter:image" content="https://s-tech-industry.com/S-TECH.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="flaticon.css">
 </head>
@@ -500,6 +522,14 @@
                     <p id="footerEmail">Email: info@s-tech.com</p>
                     <p id="footerPhone">Phone: +48 (123) 456-7890</p>
                 </div>
+                <div class="footer-section">
+                    <h3 data-en="Legal" data-pl="Prawne">Legal</h3>
+                    <ul>
+                        <li><a href="privacy-policy.html" data-en="Privacy Policy" data-pl="Polityka Prywatności">Privacy Policy</a></li>
+                        <li><a href="terms.html" data-en="Terms of Service" data-pl="Regulamin">Terms of Service</a></li>
+                        <li><a href="#contact" data-en="Cookie Policy" data-pl="Polityka Cookies">Cookie Policy</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="footer-bottom">
                 <p data-en="&copy; 2026 S-TECH Industry. All rights reserved." data-pl="&copy; 2026 S-TECH Industry. Wszystkie prawa zastrzeżone.">&copy; 2026 S-TECH Industry. All rights reserved.</p>
@@ -511,6 +541,21 @@
     <button id="scroll-top-btn" title="Back to top">
         <i class="fi fi-rr-arrow-up"></i>
     </button>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-consent" class="cookie-consent hidden">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h3 data-en="Cookie Notice" data-pl="Informacja o Cookies">Cookie Notice</h3>
+                <p data-en="We use cookies to enhance your experience, analyze traffic, and personalize content. By clicking 'Accept', you consent to our use of cookies." data-pl="Używamy plików cookie, aby poprawić Twoje doświadczenia, analizować ruch i personalizować treści. Klikając 'Akceptuj', wyrażasz zgodę na ich użycie.">We use cookies to enhance your experience, analyze traffic, and personalize content. By clicking 'Accept', you consent to our use of cookies.</p>
+                <a href="privacy-policy.html" data-en="Learn more" data-pl="Dowiedz się więcej">Learn more</a>
+            </div>
+            <div class="cookie-buttons">
+                <button id="cookie-accept" class="cookie-btn accept" data-en="Accept" data-pl="Akceptuj">Accept</button>
+                <button id="cookie-decline" class="cookie-btn decline" data-en="Decline" data-pl="Odrzuć">Decline</button>
+            </div>
+        </div>
+    </div>
 
     <script src="languages.js"></script>
     <script>
@@ -558,6 +603,33 @@
         
         // Track page views
         document.addEventListener('DOMContentLoaded', () => {
+            // Cookie consent banner
+            const cookieConsent = document.getElementById('cookie-consent');
+            const cookieAccept = document.getElementById('cookie-accept');
+            const cookieDecline = document.getElementById('cookie-decline');
+            
+            // Check if user has already made a choice
+            const cookieChoice = localStorage.getItem('stech_cookie_consent');
+            
+            if (!cookieChoice) {
+                // Show banner after a short delay
+                setTimeout(() => {
+                    cookieConsent.classList.remove('hidden');
+                }, 1000);
+            }
+            
+            cookieAccept.addEventListener('click', () => {
+                localStorage.setItem('stech_cookie_consent', 'accepted');
+                cookieConsent.classList.add('hidden');
+            });
+            
+            cookieDecline.addEventListener('click', () => {
+                localStorage.setItem('stech_cookie_consent', 'declined');
+                cookieConsent.classList.add('hidden');
+                // Clear any non-essential cookies/storage
+                localStorage.removeItem('stech_views');
+            });
+            
             let views = parseInt(localStorage.getItem('stech_views') || '0');
             views++;
             localStorage.setItem('stech_views', views);
